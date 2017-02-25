@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>yaoyao-task1</title>
+	<style>
+	    form{
+		    margin-left:50px;
+			margin-top:50px;
+		}
+		label{
+		    font-size:18px;
+			font-weight:bold;
+		}
+		input{
+		    height:30px;/*更改input的高度*/
+			border-radius:8px;
+			border:1px #999 solid;
+		}
+		#button{
+		    background-color:blue;
+			color:white;
+			border:1px blue solid;
+			border-radius:4px;
+			height:34px;
+			font-size:18px;
+			width:80px;
+		}
+		td{
+		    padding-top:10px;
+		}
+		/*提示部分*/
+		#init{
+		    font-size:14px;
+			color:#999;
+		}
+		#error1{
+		    font-size:14px;
+		    color:red;
+			display:none;
+		}
+		#error2{
+		    font-size:14px;
+		    color:red;
+			display:none;
+		}
+		#correct{
+		    font-size:14px;
+		    color:green;
+			display:none;
+		}
+	</style>
+	<script>
+	    function check(){
+		    var text=document.getElementById("username").value;
+			var sum=0;
+			if(text=="")
+			{
+			    document.getElementById("error2").style.display="table-row";
+				document.getElementById("init").style.display="none";
+				document.getElementById("error1").style.display="none";
+				document.getElementById("correct").style.display="none";
+			}
+			else
+			{
+			    for(var i=0; i<text.length;i++)
+				{
+				    if(text.charCodeAt(i)>256)//是中文
+					{
+					    sum=sum+2;
+					}
+					else
+					{
+					    sum=sum+1;
+					}
+				}
+				console.log(sum);
+				if(sum<4||sum>16)
+				{
+				    document.getElementById("error1").style.display="table-row";
+				    document.getElementById("init").style.display="none";
+				    document.getElementById("error2").style.display="none";
+				    document.getElementById("correct").style.display="none";
+				}
+				else
+				{
+				    document.getElementById("correct").style.display="table-row";
+				    document.getElementById("init").style.display="none";
+				    document.getElementById("error2").style.display="none";
+				    document.getElementById("error1").style.display="none";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+    <form>
+	    <table>
+		<tr>
+		  <td>
+            <label>名称&nbsp;&nbsp;</label>
+		  </td>
+		  <td>
+		    <input type="text" name="username" id="username" size=40px/>
+		  </td>
+		  <td>
+		    <input type="button" id="button" onclick="check()" value="验证"/>
+		  </td>
+		</tr>
+		<tr id="init">
+		  <td></td>
+		  <td>
+		    <span>必填，长度为4~16个字符</span>
+		  </td>
+		</tr>
+		<tr id="error1">
+		  <td></td>
+		  <td>
+		    <span>输入字符长度不正确</span>
+		  </td>
+		</tr>
+		<tr id="error2">
+		  <td></td>
+		  <td>
+		    <span>姓名不能为空</span>
+		  </td>
+		</tr>
+		<tr id="correct">
+		  <td></td>
+		  <td>
+		    <span>名称格式正确</span>
+		  </td>
+		</tr>
+		</table>
+	</form>
+</body>
+</html>
+<!--
+注意：更换提示的时候应该将tr整行隐藏起来，id设在tr上，且隐藏和显示应采用以下语句
+			    document.getElementById("error2").style.display="table-row";
+				document.getElementById("init").style.display="none";
+-->
